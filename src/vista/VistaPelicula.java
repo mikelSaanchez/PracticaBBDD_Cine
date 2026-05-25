@@ -10,11 +10,12 @@ import modelo.dto.PeliculaDTO;
 import utils.Lecturas;
 
 public class VistaPelicula {
+	PeliculaController peliculaController = new PeliculaController();
 
 	public void menuPelicula() throws IOException {
 		boolean salir = false;
 		do {
-			System.out.println("\n=== Gestion Peliculas =>>");
+			System.out.println("\n<<=== Gestion Peliculas =>>");
 			System.out.println("1. Listar Peliculas");
 			System.out.println("2. Añadir Peliculas");
 			System.out.println("3. Editar Peliculas ");
@@ -36,7 +37,7 @@ public class VistaPelicula {
 				break;
 			case 4:
 				System.out.println("= BORRAR PELICULA =");
-				borrarProducto();
+				borrarPelicula();
 				break;
 
 			case 0:
@@ -47,13 +48,12 @@ public class VistaPelicula {
 	}
 
 	public void mostrarPeliculas() {
-		PeliculaController peliculaController = new PeliculaController();
 
 		ArrayList<PeliculaDTO> lista = peliculaController.obtenerPeliculas();
 
-		System.out.println("----------------");
-		System.out.println("PELICULAS");
-		System.out.println("----------------");
+		System.out.println("\n╔═══════════════════════════╗");
+		System.out.println("║          PELICULAS 	    ║");
+		System.out.println("╚═══════════════════════════╝");
 		for (PeliculaDTO pelicula : lista) {
 			System.out.println(pelicula.getId() + " - " + pelicula.getTitulo() + " - " + pelicula.getGenero() + " - "
 					+ pelicula.getDuracion() + " - " + pelicula.getAnio());
@@ -69,16 +69,14 @@ public class VistaPelicula {
 
 		PeliculaDTO peliculaInsertar = new PeliculaDTO(nombre, genero, duracion, anio);
 
-		PeliculaController peliculaController = new PeliculaController();
 		boolean insertadoOK = peliculaController.insertar(peliculaInsertar);
 		if (insertadoOK) {
-			System.out.println("Pelicula añadido correctamente");
+			System.out.println("Pelicula añadida correctamente");
 		} else {
-			System.out.println("Error al añadir la categoria");
+			System.out.println("Error al añadir la pelicula");
 		}
 	}
-	
-	
+
 	public void actualizarPelicula() throws IOException {
 		BufferedReader leer = new BufferedReader(new InputStreamReader(System.in));
 
@@ -97,24 +95,23 @@ public class VistaPelicula {
 		int anio = Integer.parseInt(leer.readLine());
 
 		PeliculaDTO pelicula = new PeliculaDTO(id, titulo, genero, duracion, anio);
-		PeliculaController peliculaController = new PeliculaController();
+
 		boolean todoOk = peliculaController.actualizar(pelicula);
 		if (todoOk) {
 			System.out.println("Se ha modificado correctamente");
-		}else {
+		} else {
 			System.out.println("No se ha podido actualizar");
 		}
 	}
 
-	private void borrarProducto() {
+	private void borrarPelicula() {
 		int id = Lecturas.leerEntero("Introduce el id de la pelicula a borrar:");
-		PeliculaController peliculaController = new PeliculaController();
 		boolean borradoOK = peliculaController.borrar(id);
-		
+
 		if (borradoOK) {
-			System.out.println("Producto borrado correctamente");
+			System.out.println("Pelicula borrada correctamente");
 		} else {
-			System.out.println("Error al borrar el producto");
+			System.out.println("Error al borrar la pelicula");
 		}
 	}
 

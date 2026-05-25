@@ -5,15 +5,23 @@ public class ClienteDTO {
 	private int id;
 	private String nombre;
 	private String email;
-	private int telefono;
+	private String telefono;
 
-	public ClienteDTO(int id, String nombre, String email, int telefono) {
+	public ClienteDTO(int id, String nombre, String email, String telefono) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
 		this.email = email;
 		this.telefono = telefono;
 	}
+	
+	public ClienteDTO(String nombre, String email, String telefono) {
+		super();
+		this.nombre = nombre;
+		this.email = email;
+		this.telefono = telefono;
+	}
+
 
 	public int getId() {
 		return id;
@@ -39,11 +47,11 @@ public class ClienteDTO {
 		this.email = email;
 	}
 
-	public int getTelefono() {
+	public String getTelefono() {
 		return telefono;
 	}
 
-	public void setTelefono(int telefono) {
+	public void setTelefono(String telefono) {
 		this.telefono = telefono;
 	}
 

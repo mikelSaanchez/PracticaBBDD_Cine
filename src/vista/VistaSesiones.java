@@ -2,14 +2,17 @@ package vista;
 
 import java.io.IOException;
 
+import controlador.SesionController;
 import utils.Lecturas;
 
 public class VistaSesiones {
 	
+	SesionController sesionController = new SesionController();
+	
 	public void menuSesiones() throws IOException {
 		boolean salir = false;
 		do {
-			System.out.println("\n=== Gestion Sesiones =>>");
+			System.out.println("\n<<=== Gestion Sesiones =>>");
 			System.out.println("1. Listar Sesiones");
 			System.out.println("2. Añadir Sesiones");
 			System.out.println("3. Editar Sesiones ");

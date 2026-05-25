@@ -67,23 +67,6 @@ public class PeliculaDAO {
 		}
 	}
 
-	public boolean borrar(int id) {
-		String sql = "DELETE FROM peliculas WHERE id = ?";
-		try {
-			Connection conexion = ConexionBBDD.getConexion();
-			PreparedStatement ps = conexion.prepareStatement(sql);
-			ps.setInt(1, id);
-
-			int filasAfectadas = ps.executeUpdate();
-
-			conexion.close();
-			return filasAfectadas > 0;
-		} catch (SQLException e) {
-			System.out.println("Error al borrar producto: " + e.getMessage());
-			return false;
-		}
-	}
-
 	public boolean actualizar(PeliculaDTO pelicula) {
 		try {
 			Connection conexion = ConexionBBDD.getConexion();
@@ -117,8 +100,23 @@ public class PeliculaDAO {
 			e.printStackTrace();
 			return false;
 		}
-
 	}
 
-	
+	public boolean borrar(int id) {
+		String sql = "DELETE FROM peliculas WHERE id = ?";
+		try {
+			Connection conexion = ConexionBBDD.getConexion();
+			PreparedStatement ps = conexion.prepareStatement(sql);
+			ps.setInt(1, id);
+
+			int filasAfectadas = ps.executeUpdate();
+
+			conexion.close();
+			return filasAfectadas > 0;
+		} catch (SQLException e) {
+			System.out.println("Error al borrar producto: " + e.getMessage());
+			return false;
+		}
+	}
+
 }
