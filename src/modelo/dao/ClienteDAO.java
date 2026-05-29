@@ -107,7 +107,7 @@ public class ClienteDAO {
 			conexion.close();
 			return filasAfectadas > 0;
 		} catch (SQLException e) {
-			System.out.println("Error al borrar producto: " + e.getMessage());
+			System.out.println("Error al borra el cliente: " + e.getMessage());
 			return false;
 		}
 	}

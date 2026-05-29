@@ -52,7 +52,7 @@ public class VistaCliente {
 
 		ArrayList<ClienteDTO> lista = clienteController.obtenerClientes();
 
-		System.out.println("\n╔═══════════════════════════╗");
+		System.out.println("╔═══════════════════════════╗");
 		System.out.println("║          CLIENTES 	    ║");
 		System.out.println("╚═══════════════════════════╝");
 

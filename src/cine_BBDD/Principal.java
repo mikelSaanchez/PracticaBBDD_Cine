@@ -12,7 +12,7 @@ public class Principal {
 	public static void main(String[] args) throws IOException {
 		boolean salir = false;
 		do {
-		    System.out.println("\n╔══════════════════════════════╗");
+		    System.out.println("╔══════════════════════════════╗");
             System.out.println("║       GESTIÓN DE CINE        ║");
             System.out.println("╚══════════════════════════════╝");
 			System.out.println("1. Gestión de películas");

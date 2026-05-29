@@ -51,7 +51,7 @@ public class VistaPelicula {
 
 		ArrayList<PeliculaDTO> lista = peliculaController.obtenerPeliculas();
 
-		System.out.println("\n╔═══════════════════════════╗");
+		System.out.println("╔═══════════════════════════╗");
 		System.out.println("║          PELICULAS 	    ║");
 		System.out.println("╚═══════════════════════════╝");
 		for (PeliculaDTO pelicula : lista) {

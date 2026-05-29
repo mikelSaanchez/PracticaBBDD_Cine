@@ -3,23 +3,47 @@ package modelo.dto;
 public class SesionesDTO {
 
 	private int id;
-	private int id_pelicula;
-	private int id_sala;
+	private int idPelicula;
+	private int idSala;
 	private String fecha;
 	private String hora;
 	private double precio;
-	private int asientos_disponibles;
+	private int asientosDisponibles;
 
-	public SesionesDTO(int id, int id_pelicula, int id_sala, String fecha, String hora, double precio,
-			int asientos_disponibles) {
-		super();
+	
+	private String tituloPelicula;
+	private int numeroSala;
+
+	public SesionesDTO(int id, int idPelicula, int idSala, String fecha, String hora, double precio,
+			int asientosDisponibles) {
 		this.id = id;
-		this.id_pelicula = id_pelicula;
-		this.id_sala = id_sala;
+		this.idPelicula = idPelicula;
+		this.idSala = idSala;
 		this.fecha = fecha;
 		this.hora = hora;
 		this.precio = precio;
-		this.asientos_disponibles = asientos_disponibles;
+		this.asientosDisponibles = asientosDisponibles;
+	}
+
+	public SesionesDTO(int idPelicula, int idSala, String fecha, String hora, double precio, int asientosDisponibles) {
+		this.idPelicula = idPelicula;
+		this.idSala = idSala;
+		this.fecha = fecha;
+		this.hora = hora;
+		this.precio = precio;
+		this.asientosDisponibles = asientosDisponibles;
+	}
+
+	
+	public SesionesDTO(int id, String tituloPelicula, int numeroSala, String fecha, String hora, double precio,
+			int asientosDisponibles) {
+		this.id = id;
+		this.tituloPelicula = tituloPelicula;
+		this.numeroSala = numeroSala;
+		this.fecha = fecha;
+		this.hora = hora;
+		this.precio = precio;
+		this.asientosDisponibles = asientosDisponibles;
 	}
 
 	public int getId() {
@@ -30,20 +54,20 @@ public class SesionesDTO {
 		this.id = id;
 	}
 
-	public int getId_pelicula() {
-		return id_pelicula;
+	public int getIdPelicula() {
+		return idPelicula;
 	}
 
-	public void setId_pelicula(int id_pelicula) {
-		this.id_pelicula = id_pelicula;
+	public void setIdPelicula(int idPelicula) {
+		this.idPelicula = idPelicula;
 	}
 
-	public int getId_sala() {
-		return id_sala;
+	public int getIdSala() {
+		return idSala;
 	}
 
-	public void setId_sala(int id_sala) {
-		this.id_sala = id_sala;
+	public void setIdSala(int idSala) {
+		this.idSala = idSala;
 	}
 
 	public String getFecha() {
@@ -70,12 +94,28 @@ public class SesionesDTO {
 		this.precio = precio;
 	}
 
-	public int getAsientos_disponibles() {
-		return asientos_disponibles;
+	public int getAsientosDisponibles() {
+		return asientosDisponibles;
 	}
 
-	public void setAsientos_disponibles(int asientos_disponibles) {
-		this.asientos_disponibles = asientos_disponibles;
+	public void setAsientosDisponibles(int asientosDisponibles) {
+		this.asientosDisponibles = asientosDisponibles;
+	}
+
+	public String getTituloPelicula() {
+		return tituloPelicula;
+	}
+
+	public void setTituloPelicula(String tituloPelicula) {
+		this.tituloPelicula = tituloPelicula;
+	}
+
+	public int getNumeroSala() {
+		return numeroSala;
+	}
+
+	public void setNumeroSala(int numeroSala) {
+		this.numeroSala = numeroSala;
 	}
 
 }
