@@ -96,10 +96,31 @@ public class PeliculaDAO {
 			return numFilas > 0;
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return false;
 		}
+	}
+
+	public PeliculaDTO obtenerPorId(int id) {
+		try {
+			Connection conexion = ConexionBBDD.getConexion();
+			String sql = "SELECT id, titulo, genero, duracion, anio FROM peliculas WHERE id = ?";
+			PreparedStatement ps = conexion.prepareStatement(sql);
+			ps.setInt(1, id);
+			ResultSet rs = ps.executeQuery();
+			if (rs.next()) {
+				String titulo = rs.getString("titulo");
+				String genero = rs.getString("genero");
+				int duracion = rs.getInt("duracion");
+				int anio = rs.getInt("anio");
+				PeliculaDTO pelicula = new PeliculaDTO(id, titulo, genero, duracion, anio);
+				return pelicula;
+			}
+			conexion.close();
+		} catch (SQLException e) {
+			System.out.println("Error al obtener película: " + e.getMessage());
+		}
+		return null;
 	}
 
 	public boolean borrar(int id) {

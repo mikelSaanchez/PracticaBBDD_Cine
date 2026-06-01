@@ -80,18 +80,24 @@ public class VistaPelicula {
 	public void actualizarPelicula() throws IOException {
 		BufferedReader leer = new BufferedReader(new InputStreamReader(System.in));
 
-		int id = Lecturas.leerEntero("Introduce el id de la pelicula a modificar:");
+		int id = Lecturas.leerEntero("\nIntroduce el id de la pelicula a editar: ");
 
-		System.out.println("Introduce el titulo de la pelicula: ");
+		PeliculaDTO actual = peliculaController.obtenerPorId(id);
+		if (actual == null) {
+			System.out.println("No existe ningúna pelicula con ese id.");
+			return;
+		}
+
+		System.out.println("(Deja el campo vacío para mantener el valor actual)");
+
+		System.out.println("Nuevo título [" + actual.getTitulo() + "]: ");
 		String titulo = leer.readLine();
-
-		System.out.println("Introduce el genero de la pelicula: ");
+		System.out.println("Nuevo género [" + actual.getGenero() + "]: ");
 		String genero = leer.readLine();
-
-		System.out.println("Introduce la duración de la pelicula (0 no modificar): ");
+		System.out.println("Nueva duración en min [" + actual.getDuracion() + "]: ");
 		int duracion = Integer.parseInt(leer.readLine());
 
-		System.out.println("Introduce el anio de la pelicula: ");
+		System.out.println("Nuevo año [" + actual.getAnio() + "]: ");
 		int anio = Integer.parseInt(leer.readLine());
 
 		PeliculaDTO pelicula = new PeliculaDTO(id, titulo, genero, duracion, anio);

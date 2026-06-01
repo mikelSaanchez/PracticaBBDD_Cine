@@ -35,6 +35,10 @@ public class ClienteController {
 		return dao.actualizar(cliente);
 	}
 
+	public ClienteDTO obtenerPorId(int id) {
+		return dao.obtenerPorId(id);
+	}
+
 	public boolean borrar(int id) {
 
 		return dao.borrar(id);

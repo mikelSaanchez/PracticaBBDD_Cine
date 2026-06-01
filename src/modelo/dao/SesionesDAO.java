@@ -63,10 +63,85 @@ public class SesionesDAO {
 			return false;
 		}
 	}
+
 	public boolean programarSesion(int idPelicula, int idSala, String fecha, String hora, double precio) {
-		
-		
-		return false;
-		
+		Connection conexion = null;
+		try {
+			conexion = ConexionBBDD.getConexion();
+
+			conexion.setAutoCommit(false);
+
+			// Comprobar que la sala no tiene ya otra sesión programada en la misma fecha y
+			// hora
+			String comprobarSesion = "SELECT COUNT(*) FROM sesiones WHERE id_sala = ? AND fecha = ? AND hora = ?";
+			PreparedStatement psComprobar = conexion.prepareStatement(comprobarSesion);
+			psComprobar.setInt(1, idSala);
+			psComprobar.setString(2, fecha);
+			psComprobar.setString(3, hora);
+			ResultSet rsComprobarSesion = psComprobar.executeQuery();
+			rsComprobarSesion.next();
+			int sesionesExistentes = rsComprobarSesion.getInt(1);
+			psComprobar.close();
+
+			if (sesionesExistentes > 0) {
+				conexion.rollback();
+				throw new SQLException("La sala " + idSala + " ya tiene una sesión programada en la fecha " + fecha
+						+ " a las " + hora);
+			}
+
+			// Si está libre, insertar la nueva sesión con asientos_disponibles igual al
+			// aforo de la sala
+			String sqlAforo = "SELECT aforo FROM salas WHERE id = ?";
+			PreparedStatement psAforo = conexion.prepareStatement(sqlAforo);
+			psAforo.setInt(1, idSala);
+			ResultSet rsComprobarAforo = psAforo.executeQuery();
+
+			if (!rsComprobarAforo.next()) {
+				conexion.rollback();
+				throw new SQLException("No existe ninguna sala con id " + idSala + ".");
+			}
+			int aforo = rsComprobarAforo.getInt("aforo");
+			psAforo.close();
+
+			String sqlInsertar = "INSERT INTO sesiones (id_pelicula, id_sala, fecha, hora, precio, asientos_disponibles) "
+					+ "VALUES (?, ?, ?, ?, ?, ?)";
+			PreparedStatement psInsertar = conexion.prepareStatement(sqlInsertar);
+			psInsertar.setInt(1, idPelicula);
+			psInsertar.setInt(2, idSala);
+			psInsertar.setString(3, fecha);
+			psInsertar.setString(4, hora);
+			psInsertar.setDouble(5, precio);
+			psInsertar.setInt(6, aforo);
+			psInsertar.executeUpdate();
+			psInsertar.close();
+
+			conexion.commit();
+			
+			return true;
+
+		} catch (SQLException e) {
+
+			System.out.println("Error al programar la sesión: " + e.getMessage());
+			if (conexion != null) {
+				try {
+					conexion.rollback();
+					System.out.println("Cambios revertidos correctamente.");
+				} catch (SQLException ex) {
+					System.out.println("Error en rollback: " + ex.getMessage());
+				}
+			}
+			return false;
+		} finally {
+
+			if (conexion != null) {
+				try {
+					conexion.setAutoCommit(true);
+					conexion.close();
+				} catch (SQLException e) {
+					System.out.println("Error al cerrar conexión: " + e.getMessage());
+				}
+			}
+		}
+
 	}
 }

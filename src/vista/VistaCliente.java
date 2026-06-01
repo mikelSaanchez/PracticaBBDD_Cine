@@ -88,15 +88,21 @@ public class VistaCliente {
 	public void actualizarCliente() throws IOException {
 		BufferedReader leer = new BufferedReader(new InputStreamReader(System.in));
 
-		int id = Lecturas.leerEntero("Introduce el id de el cliente a modificar:");
+		int id = Lecturas.leerEntero("\nIntroduce el id del cliente a editar: ");
 
-		System.out.println("Introduce el nombre del cliente: ");
+		ClienteDTO actual = clienteController.obtenerPorId(id);
+		if (actual == null) {
+			System.out.println("No existe ningún cliente con ese id.");
+			return;
+		}
+
+		System.out.println("(Deja el campo vacío para mantener el valor actual)");
+
+		System.out.println("Nuevo nombre [" + actual.getNombre() + "]: ");
 		String nombre = leer.readLine();
-
-		System.out.println("Introduce el email de el cliente: ");
+		System.out.println("Nuevo email [" + actual.getEmail() + "]: ");
 		String email = leer.readLine();
-
-		System.out.println("Introduce el telefono de el cliente: ");
+		System.out.println("Nuevo teléfono [" + actual.getTelefono() + "]: ");
 		String telefono = leer.readLine();
 
 		String errorValidacion = clienteController.validar(email, telefono);

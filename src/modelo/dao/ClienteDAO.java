@@ -112,4 +112,28 @@ public class ClienteDAO {
 		}
 	}
 
+	public ClienteDTO obtenerPorId(int id) {
+		try {
+			Connection conexion = ConexionBBDD.getConexion();
+			String sql = "SELECT id, nombre, email, telefono FROM clientes WHERE id = ?";
+			PreparedStatement ps = conexion.prepareStatement(sql);
+			ps.setInt(1, id);
+			ResultSet rs = ps.executeQuery();
+			if (rs.next()) {
+
+				String nombre = rs.getString("nombre");
+				String email = rs.getString("email");
+				String telefono = rs.getString("telefono");
+
+				ClienteDTO cliente = new ClienteDTO(id, nombre, email, telefono);
+				conexion.close();
+				return cliente;
+			}
+			conexion.close();
+		} catch (SQLException e) {
+			System.out.println("Error al obtener cliente: " + e.getMessage());
+		}
+		return null;
+	}
+
 }

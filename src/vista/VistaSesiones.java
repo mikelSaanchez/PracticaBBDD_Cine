@@ -80,6 +80,7 @@ public class VistaSesiones {
 		if (!resultado) {
 			System.out.println("No se pudo programar la sesión.");
 		}
+		
 	}
 
 }
