@@ -1,6 +1,10 @@
 package vista;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 import controlador.SesionController;
@@ -10,7 +14,9 @@ import utils.Lecturas;
 public class VistaSesiones {
 
 	SesionController sesionController = new SesionController();
-
+	private DateTimeFormatter formatoFecha = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+	private DateTimeFormatter formatoHora = DateTimeFormatter.ofPattern("HH:mm");
+	
 	public void menuSesiones() throws IOException {
 		boolean salir = false;
 		do {
@@ -72,8 +78,16 @@ public class VistaSesiones {
 
 		int idPelicula = Lecturas.leerEntero("Id de la película: ");
 		int idSala = Lecturas.leerEntero("Id de la sala: ");
-		String fecha = Lecturas.leerString("Fecha (YYYY-MM-DD): ");
-		String hora = Lecturas.leerString("Hora (HH:MM:SS): ");
+		String fecha = Lecturas.leerString("Fecha (yyyy-MM-dd): ");
+		if (!esFechaValida(fecha)) {
+			System.out.println("ERROR. El formato de la fecha no es valido.");
+			return;
+		}
+		String hora = Lecturas.leerString("Hora (HH:mm): ");
+		if (!esHoraValida(hora)) {
+			System.out.println("ERROR. El formato de la hora no es valido.");
+			return;
+		}
 		double precio = Lecturas.leerDouble("Precio de la entrada (€): ");
 
 		boolean resultado = sesionController.programarSesion(idPelicula, idSala, fecha, hora, precio);
@@ -83,4 +97,24 @@ public class VistaSesiones {
 		
 	}
 
+	public boolean esFechaValida(String fecha) {
+		if (fecha == null || fecha.isBlank())
+			return false;
+		try {
+			LocalDate.parse(fecha, formatoFecha);
+			return true;
+		} catch (DateTimeParseException e) {
+			return false;
+		}
+	}
+	public boolean esHoraValida(String hora) {
+		if (hora == null || hora.isBlank())
+			return false;
+		try {
+			LocalTime.parse(hora, formatoHora);
+			return true;
+		} catch (DateTimeParseException e) {
+			return false;
+		}
+	}
 }

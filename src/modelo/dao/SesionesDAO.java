@@ -18,8 +18,12 @@ public class SesionesDAO {
 
 			Connection conexion = ConexionBBDD.getConexion();
 
-			String sql = "SELECT s.id, p.titulo, s.id_sala, s.fecha, s.hora, s.precio, s.asientos_disponibles "
-					+ " FROM sesiones s " + " JOIN peliculas p " + " ON s.id_pelicula = p.id ";
+			String sql = "SELECT s.id, p.titulo, s1.numero, s.fecha, s.hora, s.precio, s.asientos_disponibles "
+					+ " FROM sesiones s "
+					+ " JOIN peliculas p"
+					+ " ON s.id_pelicula = p.id "
+					+ " JOIN salas s1 "
+					+ " on s.id_sala = s1.id ";
 
 			PreparedStatement ps = conexion.prepareStatement(sql);
 
@@ -28,7 +32,7 @@ public class SesionesDAO {
 			while (rs.next()) {
 				int id = rs.getInt("id");
 				String titulo = rs.getString("titulo");
-				int numero = rs.getInt("id_sala");
+				int numero = rs.getInt("numero");
 				String fecha = rs.getString("fecha");
 				String hora = rs.getString("hora");
 				double precio = rs.getDouble("precio");
@@ -117,6 +121,7 @@ public class SesionesDAO {
 
 			conexion.commit();
 			
+			System.out.println("Sesion añadida correctamente. :)");
 			return true;
 
 		} catch (SQLException e) {
