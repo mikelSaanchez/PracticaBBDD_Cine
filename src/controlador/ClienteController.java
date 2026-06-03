@@ -18,14 +18,19 @@ public class ClienteController {
 		return dao.insertarCliente(clienteInsertar);
 	}
 
-	public String validar(String email, String telefono) {
+	public String validarMail(String email) {
 
 		if (!email.isEmpty() && !email.matches("^[^@]+@[^@]+\\.(com|es)$")) {
 			return "El email '" + email + "' no tiene un formato válido.";
 		}
 
+		return null;
+	}
+
+	public String validarTelefono(String telefono) {
+
 		if (!telefono.isEmpty() && !telefono.matches("[0-9]{9}")) {
-			return "El teléfono solo puede contener dígitos.";
+			return "El teléfono solo puede contener dígitos y debe tener 9 digitos.";
 		}
 		return null;
 	}

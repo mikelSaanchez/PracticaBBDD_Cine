@@ -66,11 +66,18 @@ public class VistaCliente {
 
 		String nombre = Lecturas.leerString("Introduce el nombre de el cliente: ");
 		String email = Lecturas.leerString("Introduce el email de el cliente: ");
+
+		String errorValidacionMail = clienteController.validarMail(email);
+		if (errorValidacionMail != null) {
+			System.out.println("Error de validación: " + errorValidacionMail);
+			System.out.println("Cliente no registrado.");
+			return;
+		}
 		String telefono = Lecturas.leerString("Introduce el telefono de el cliente: ");
 
-		String errorValidacion = clienteController.validar(email, telefono);
-		if (errorValidacion != null) {
-			System.out.println("Error de validación: " + errorValidacion);
+		String errorValidacionTelefono = clienteController.validarTelefono(telefono);
+		if (errorValidacionTelefono != null) {
+			System.out.println("Error de validación: " + errorValidacionTelefono);
 			System.out.println("Cliente no registrado.");
 			return;
 		}
@@ -102,12 +109,18 @@ public class VistaCliente {
 		String nombre = leer.readLine();
 		System.out.println("Nuevo email [" + actual.getEmail() + "]: ");
 		String email = leer.readLine();
+		String errorValidacionMail = clienteController.validarMail(email);
+		if (errorValidacionMail != null) {
+			System.out.println("Error de validación: " + errorValidacionMail);
+			System.out.println("Cliente no registrado.");
+			return;
+		}
 		System.out.println("Nuevo teléfono [" + actual.getTelefono() + "]: ");
 		String telefono = leer.readLine();
 
-		String errorValidacion = clienteController.validar(email, telefono);
-		if (errorValidacion != null) {
-			System.out.println("Error de validación: " + errorValidacion);
+		String errorValidacionTelefono = clienteController.validarTelefono(telefono);
+		if (errorValidacionTelefono != null) {
+			System.out.println("Error de validación: " + errorValidacionTelefono);
 			System.out.println("Cliente no registrado.");
 			return;
 		}
