@@ -117,6 +117,7 @@ public class SesionesDAO {
 			psInsertar.setDouble(5, precio);
 			psInsertar.setInt(6, aforo);
 			psInsertar.executeUpdate();
+			
 			psInsertar.close();
 
 			conexion.commit();
